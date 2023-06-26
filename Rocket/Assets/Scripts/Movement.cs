@@ -7,15 +7,20 @@ public class Movement : MonoBehaviour
     #region VARIABLES
     [Header("Physics")]
     Rigidbody rocketRigidbody;
+
     [Header("Movement")]
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 100f;
+
+    [Header("Sound Effects")]
+    AudioSource rocketAudioSource;
     #endregion
 
     #region EVENTS
     void Start()
     {
         rocketRigidbody = GetComponent<Rigidbody>();
+        rocketAudioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -30,6 +35,17 @@ public class Movement : MonoBehaviour
         if(Input.GetKey(KeyCode.Space))
         {
             rocketRigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            if(!rocketAudioSource.isPlaying)
+            {
+                rocketAudioSource.Play();
+            }
+        }
+        else
+        {
+            if(rocketAudioSource.isPlaying)
+            {
+                rocketAudioSource.Stop();
+            }
         }
     }
 
@@ -48,7 +64,9 @@ public class Movement : MonoBehaviour
 
     void ApplyRotation(float rotation)
     {
+        rocketRigidbody.freezeRotation = true;
         transform.Rotate(Vector3.forward * rotation * Time.deltaTime);
+        rocketRigidbody.freezeRotation = false;
     }
     #endregion
 }
