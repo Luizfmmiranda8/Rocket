@@ -6,6 +6,7 @@ public class CollisionHandler : MonoBehaviour
     #region VARIABLES
     [Header("Scene Management")]
     [SerializeField] float levelLoadDelay = 2f;
+    bool isTransitioning = false;
 
     [Header("Sound Effects")]
     [SerializeField] AudioClip winSFX;
@@ -27,6 +28,8 @@ public class CollisionHandler : MonoBehaviour
     #region METHODS
     void EnterCollision(Collision other)
     {
+        if(isTransitioning){ return; }
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -45,6 +48,8 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
+        isTransitioning = true;
+        environmentAudioSource.Stop();
         environmentAudioSource.PlayOneShot(crashSFX, 0.3f);
         //TODO: Add particle effect uppon crash
         GetComponent<Movement>().enabled = false;
@@ -53,6 +58,8 @@ public class CollisionHandler : MonoBehaviour
 
     void StartWinSequence()
     {
+        isTransitioning = true;
+        environmentAudioSource.Stop();
         environmentAudioSource.PlayOneShot(winSFX, 0.5f);
         //TODO: Add particle effect uppon win
         GetComponent<Movement>().enabled = false;
