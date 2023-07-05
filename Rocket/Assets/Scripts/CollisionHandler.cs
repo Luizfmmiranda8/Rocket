@@ -4,9 +4,20 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     #region VARIABLES
+    [Header("Scene Management")]
+    [SerializeField] float levelLoadDelay = 2f;
+
+    [Header("Sound Effects")]
+    [SerializeField] AudioClip winSFX;
+    [SerializeField] AudioClip crashSFX;
+    AudioSource environmentAudioSource;
     #endregion
 
     #region EVENTS
+    void Start()
+    {
+        environmentAudioSource = GetComponent<AudioSource>();
+    }
     void OnCollisionEnter(Collision other) 
     {
         EnterCollision(other);
@@ -23,17 +34,29 @@ public class CollisionHandler : MonoBehaviour
                 break;
             
             case "Finish":
-                LoadNextLevel();
-                break;
-            
-            case "Fuel":
-                Debug.Log("This is fuel");
+                StartWinSequence();
                 break;
 
             default:
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
+    }
+
+    void StartCrashSequence()
+    {
+        environmentAudioSource.PlayOneShot(crashSFX, 0.3f);
+        //TODO: Add particle effect uppon crash
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadLevel", levelLoadDelay);
+    }
+
+    void StartWinSequence()
+    {
+        environmentAudioSource.PlayOneShot(winSFX, 0.5f);
+        //TODO: Add particle effect uppon win
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", levelLoadDelay);
     }
 
     void ReloadLevel()

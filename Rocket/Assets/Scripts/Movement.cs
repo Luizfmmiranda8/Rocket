@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float rotationThrust = 100f;
 
     [Header("Sound Effects")]
+    [SerializeField] AudioClip mainEngineSFX;
     AudioSource rocketAudioSource;
     #endregion
 
@@ -37,7 +38,7 @@ public class Movement : MonoBehaviour
             rocketRigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
             if(!rocketAudioSource.isPlaying)
             {
-                rocketAudioSource.Play();
+                rocketAudioSource.PlayOneShot(mainEngineSFX);
             }
         }
         else
