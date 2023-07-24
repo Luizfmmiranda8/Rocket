@@ -40,51 +40,79 @@ public class Movement : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space))
         {
-            rocketRigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-            if(!rocketAudioSource.isPlaying)
-            {
-                rocketAudioSource.PlayOneShot(mainEngineSFX);
-                mainThrustEffect.Play();
-            }
+            StartThrusting();
         }
         else
         {
-            if(rocketAudioSource.isPlaying)
-            {
-                rocketAudioSource.Stop();
-                mainThrustEffect.Stop();
-            }
+            StopThrusting();
         }
     }
+
+    void StartThrusting()
+    {
+        rocketRigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        if (!rocketAudioSource.isPlaying)
+        {
+            rocketAudioSource.PlayOneShot(mainEngineSFX);
+            mainThrustEffect.Play();
+        }
+    }
+
+    void StopThrusting()
+    {
+        if (rocketAudioSource.isPlaying)
+        {
+            rocketAudioSource.Stop();
+            mainThrustEffect.Stop();
+        }
+    }
+
 
     void Rotation()
     {
         if(Input.GetKey(KeyCode.A))
         {
-            ApplyRotation(rotationThrust);
-            
-            if(!rightThrustEffect.isPlaying)
-            {
-                rightThrustEffect.Play();
-            }
+            RotateLeft();
         }
 
         else if(Input.GetKey(KeyCode.D))
         {
-            ApplyRotation(-rotationThrust);
-
-            if(!leftThrustEffect.isPlaying)
-            {
-                leftThrustEffect.Play();        
-            }
+            RotateRight();
         }
 
         else
         {
-            rightThrustEffect.Stop();
-            leftThrustEffect.Stop();
+            StopRotating();
         }
     }
+
+    void RotateLeft()
+    {
+        ApplyRotation(rotationThrust);
+
+        if (!rightThrustEffect.isPlaying)
+        {
+            rightThrustEffect.Play();
+        }
+    }
+
+    void RotateRight()
+    {
+        ApplyRotation(-rotationThrust);
+
+        if (!leftThrustEffect.isPlaying)
+        {
+            leftThrustEffect.Play();
+        }
+    }
+
+
+    void StopRotating()
+    {
+        rightThrustEffect.Stop();
+        leftThrustEffect.Stop();
+    }
+
 
     void ApplyRotation(float rotation)
     {
