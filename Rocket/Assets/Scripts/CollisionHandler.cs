@@ -16,6 +16,9 @@ public class CollisionHandler : MonoBehaviour
     [Header("Partcile System")]
     [SerializeField] ParticleSystem successEffect;
     [SerializeField] ParticleSystem crashEffect;
+
+    [Header("Collision Manager")]
+    bool collisionDisabled = false;
     #endregion
 
     #region EVENTS
@@ -23,16 +26,38 @@ public class CollisionHandler : MonoBehaviour
     {
         environmentAudioSource = GetComponent<AudioSource>();
     }
+
+    void Update()
+    {
+        RespondToDebugKeys();
+    }
+
+
     void OnCollisionEnter(Collision other) 
     {
         EnterCollision(other);
     }
+
     #endregion
 
     #region METHODS
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            //Toggle collision
+            collisionDisabled = !collisionDisabled;
+        }
+    }
+
     void EnterCollision(Collision other)
     {
-        if(isTransitioning){ return; }
+        if(isTransitioning || collisionDisabled){ return; }
 
         switch (other.gameObject.tag)
         {
