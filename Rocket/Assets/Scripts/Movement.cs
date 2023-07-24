@@ -15,6 +15,11 @@ public class Movement : MonoBehaviour
     [Header("Sound Effects")]
     [SerializeField] AudioClip mainEngineSFX;
     AudioSource rocketAudioSource;
+
+    [Header("Partcile System")]
+    [SerializeField] ParticleSystem mainThrustEffect;
+    [SerializeField] ParticleSystem rightThrustEffect;
+    [SerializeField] ParticleSystem leftThrustEffect;
     #endregion
 
     #region EVENTS
@@ -39,6 +44,7 @@ public class Movement : MonoBehaviour
             if(!rocketAudioSource.isPlaying)
             {
                 rocketAudioSource.PlayOneShot(mainEngineSFX);
+                mainThrustEffect.Play();
             }
         }
         else
@@ -46,6 +52,7 @@ public class Movement : MonoBehaviour
             if(rocketAudioSource.isPlaying)
             {
                 rocketAudioSource.Stop();
+                mainThrustEffect.Stop();
             }
         }
     }
@@ -55,11 +62,27 @@ public class Movement : MonoBehaviour
         if(Input.GetKey(KeyCode.A))
         {
             ApplyRotation(rotationThrust);
+            
+            if(!rightThrustEffect.isPlaying)
+            {
+                rightThrustEffect.Play();
+            }
         }
 
         else if(Input.GetKey(KeyCode.D))
         {
             ApplyRotation(-rotationThrust);
+
+            if(!leftThrustEffect.isPlaying)
+            {
+                leftThrustEffect.Play();        
+            }
+        }
+
+        else
+        {
+            rightThrustEffect.Stop();
+            leftThrustEffect.Stop();
         }
     }
 

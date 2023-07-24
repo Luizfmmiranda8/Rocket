@@ -12,6 +12,10 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip winSFX;
     [SerializeField] AudioClip crashSFX;
     AudioSource environmentAudioSource;
+
+    [Header("Partcile System")]
+    [SerializeField] ParticleSystem successEffect;
+    [SerializeField] ParticleSystem crashEffect;
     #endregion
 
     #region EVENTS
@@ -51,7 +55,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         environmentAudioSource.Stop();
         environmentAudioSource.PlayOneShot(crashSFX, 0.3f);
-        //TODO: Add particle effect uppon crash
+        crashEffect.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
@@ -61,7 +65,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         environmentAudioSource.Stop();
         environmentAudioSource.PlayOneShot(winSFX, 0.5f);
-        //TODO: Add particle effect uppon win
+        successEffect.Play();
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
     }
