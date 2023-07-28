@@ -10,7 +10,8 @@ public class Oscillator : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] Vector3 movementVector;
-    [SerializeField] [Range(0,1)] float movementFactor;
+    [SerializeField] float period = 2f;
+    float movementFactor;
     
     #endregion
 
@@ -22,12 +23,24 @@ public class Oscillator : MonoBehaviour
 
     void Update()
     {
-        Vector3 offset = movementVector * movementFactor;
-
-        transform.position = startingPosition + offset;
+        MoveObstacle();
     }
     #endregion
 
     #region METHODS
+    void MoveObstacle()
+    {
+        if(period <= Mathf.Epsilon){ return; }
+        
+        float cycles = Time.time / period;
+        const float TAU = Mathf.PI * 2;
+        float rawSinWave = Mathf.Sin(cycles * TAU);
+
+        movementFactor = (rawSinWave + 1f) / 2f;
+
+        Vector3 offset = movementVector * movementFactor;
+
+        transform.position = startingPosition + offset;
+    }
     #endregion
 }

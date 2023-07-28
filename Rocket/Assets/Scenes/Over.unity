@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d026cf46e372a947b1efd5ebd47fd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 8, y: 0, z: 0}
-  movementFactor: 0
+  movementVector: {x: 5, y: 0, z: 0}
+  period: 3
 --- !u!1001 &50395907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -476,8 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d026cf46e372a947b1efd5ebd47fd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 8, y: 0, z: 0}
-  movementFactor: 0
+  movementVector: {x: 5, y: 0, z: 0}
+  period: 3
 --- !u!4 &513425942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1348069963785090868, guid: 841c9415cb35dd145bd04c3dd6dc2565, type: 3}
@@ -1505,8 +1505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d026cf46e372a947b1efd5ebd47fd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 8, y: 0, z: 0}
-  movementFactor: 0
+  movementVector: {x: 5, y: 0, z: 0}
+  period: 3
 --- !u!1001 &1235596898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1770,8 +1770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d026cf46e372a947b1efd5ebd47fd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVector: {x: 8, y: 0, z: 0}
-  movementFactor: 0
+  movementVector: {x: 5, y: 0, z: 0}
+  period: 3
 --- !u!1001 &1862400891
 PrefabInstance:
   m_ObjectHideFlags: 0
